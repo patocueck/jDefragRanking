@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jdefragranking;
+package cmdtest;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,62 +24,45 @@ public class CMDTest {
         
         String line = "";
         try {
-            //ProcessBuilder pb = new ProcessBuilder("cmd.exe");
-            //Process p = pb.start();
             
-            Process p = Runtime.getRuntime().exec("cmd.exe");
+/*            ShellExec exec = new ShellExec(true, false);
+            exec.execute("D:\\ioquake3\\defrag-mp.bat", null, true);
+            System.out.println(exec.getOutput());
+*/
+
+
+            ProcessBuilder pb = new ProcessBuilder("D:\\ioquake3\\defrag-mp.bat");
+            Process p = pb.start();
             
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedWriter output = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
             BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+                        
+            Listener listen = new Listener();
+            String line2 = "";
+            int count = 0;
             
-            //line = input.readLine();
-            //while ((line = input.readLine()) != null) {
-                //System.out.println(line);
-            //}
-
-            //output.write("D:\\ioquake3\\defrag\\misc\\misc\\defrag-serverdocs\\files\\defrag-mp.bat");
-            //output.write("d:\\ioquake3\\ioq3ded.x86.exe");
-//            output.write("D:");
-//            output.newLine();
-//            output.flush();
-//            output.write("cd D:\\ioquake3");
-//            output.newLine();
-//            output.flush();
-//            output.write("ioq3ded.x86.exe");
-//            output.newLine();
-//            output.flush();
-            output.write("dir");
+            while ((line = error.readLine() ) != null && (line.length() > 0 || count == 21) || count == 57) {
+                count++;
+                System.out.println(line); 
+            }
+            output.write("say ===========TOP========");
             output.newLine();
             output.flush();
             
-            Listener listen = new Listener();
-//            while ((line = error.readLine()) != null) {
-//                System.out.println(line);
-//            }
-            while ((line = input.readLine()) != null) {
-                
-                String cmd = listen.readCommand(line);
-                cmd="top";
-                if (cmd == null) 
-                    continue;
-                
-                if (cmd.equalsIgnoreCase("top")){
-                    output.write("say ===========TOP========");
-                    output.newLine();
-                    output.flush();
-                    output.write("say 1) 10:00 Hoopz");
-                    output.newLine();
-                    output.flush();
-                }
-                
-                System.out.println(line);
+            while ((line2 = error.readLine() ) != null && line2.length() > 0) {
+                System.out.println(line2); 
             }
 
             p.destroy();
+
         }
         catch (IOException e){
+            System.out.println("IOException e: " + e.getLocalizedMessage());
+        }catch (Exception e){
+            System.out.println("Exception e: " + e.getLocalizedMessage());
         }
+        
         
     }
     
