@@ -8,27 +8,27 @@ import javax.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cl.patocueck.jdefragranking.service.UsuarioService;
 import cl.patocueck.jdefragranking.vo.BaseResponse;
 import cl.patocueck.jdefragranking.vo.request.LoginRequest;
 import cl.patocueck.jdefragranking.vo.response.LoginResponse;
+import cl.patocueck.jdefragranking.service.PlayerService;
 
 @Service
 @Path("/Login")
 public class LoginRestService {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private PlayerService usuarioService;
 	
 	@POST
 	@Path("/login")
 	@Produces("application/json")
     @Consumes("application/json")
 	public BaseResponse<LoginResponse> login(LoginRequest login){  
-		BaseResponse<LoginResponse> response = new BaseResponse<LoginResponse>();
-	
-		response = usuarioService.login(login);
-		
-		return response;  
+            BaseResponse<LoginResponse> response = new BaseResponse<LoginResponse>();
+
+            response = usuarioService.login(login);
+
+            return response;  
 	}  
 }
