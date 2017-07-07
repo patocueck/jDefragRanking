@@ -11,29 +11,41 @@ package cl.patocueck.jdefragranking.vo.request;
  */
 public class RegisterTimeRequest {
     
-    private String nick;
+    private String email;
     private String map;
     private String physic;
+    private String time;
 
     public boolean isNotValid(){
-        if (nick == null) return true;
+        if (email == null) return true;
         if (map == null) return true;
         if (physic == null) return true;
-        if (nick.equals("")) return true;
+        if (time == null) return true;
+        
+        if (email.equals("")) return true;
         if (map.equals("")) return true;
         if (physic.equals("")) return true;
+        if (time.equals("")) return true;
 
         return false;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
     
-    public String getNick() {
-        return nick;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
+    
     public String getMap() {
         return map;
     }
