@@ -6,6 +6,7 @@
 package cl.patocueck.jdefragranking.dao;
 
 import cl.patocueck.jdefragranking.model.Time;
+import java.util.List;
 
 /**
  *
@@ -13,8 +14,9 @@ import cl.patocueck.jdefragranking.model.Time;
  */
 public interface TimeDao {
 
-    public Time getTimeByEmail(String email);
+    public Time getTimeByEmail(String email, String map, String physic);
     public void add(Time time);
+    public List<Time> getTop(String map, String physic);
     
     
 }

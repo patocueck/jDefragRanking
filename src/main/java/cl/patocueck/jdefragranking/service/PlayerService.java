@@ -10,6 +10,6 @@ import cl.patocueck.jdefragranking.vo.response.RegisterTimeResponse;
 
 public interface PlayerService {
 	
-	public BaseResponse<LoginResponse> login(LoginRequest login);
-        public BaseResponse<RegisterTimeResponse> registerTime(RegisterTimeRequest registerTime);  
+    public BaseResponse<LoginResponse> login(LoginRequest login);
+    public BaseResponse<RegisterTimeResponse> registerTime(RegisterTimeRequest registerTime);  
 }

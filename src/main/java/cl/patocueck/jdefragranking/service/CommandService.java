@@ -5,11 +5,16 @@
  */
 package cl.patocueck.jdefragranking.service;
 
+import cl.patocueck.jdefragranking.vo.BaseResponse;
+import cl.patocueck.jdefragranking.vo.request.TopRequest;
+import cl.patocueck.jdefragranking.vo.response.TopResponse;
+
 /**
  *
  * @author pato
  */
 public interface CommandService {
     
-    public String getTop(String map, String physic);
+    public BaseResponse<TopResponse> getTop(TopRequest topRequest);
+    
 }

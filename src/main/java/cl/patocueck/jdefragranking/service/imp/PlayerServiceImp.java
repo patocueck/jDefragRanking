@@ -30,6 +30,7 @@ public class PlayerServiceImp implements PlayerService {
     PlayerDao playerDao; 
     @Autowired
     TimeDao timeDao;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
             
     public BaseResponse<LoginResponse> login(LoginRequest login) {
 
@@ -92,10 +93,9 @@ public class PlayerServiceImp implements PlayerService {
         
         Time time = null;
         
-        time = timeDao.getTimeByEmail(registerTime.getEmail());
+        time = timeDao.getTimeByEmail(registerTime.getEmail(), registerTime.getMap(), registerTime.getPhysic());
         //Ya tiene un tiempo, verificar cual es mas bajo
         if ( time != null ){
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
             Date newDate;
             try {
                 newDate = sdf.parse(registerTime.getTime());
@@ -114,13 +114,16 @@ public class PlayerServiceImp implements PlayerService {
         time.setEmail(registerTime.getEmail());
         time.setMap(registerTime.getMap());
         time.setPhysic(registerTime.getPhysic());
-        Date timeFormat = new Date(registerTime.getTime()); //yyyy-MM-dd HH:mm:ss.SSS
+        Date timeFormat = null;
+        try {
+            timeFormat = sdf.parse(registerTime.getTime()); //yyyy-MM-dd HH:mm:ss.SSS
+        } catch (ParseException ex) {
+            Logger.getLogger(PlayerServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
         time.setTime(timeFormat);
 
         timeDao.add(time);
-
-        response.getHeader().setCode(TimeEnum.PLAYER_REACHED_TIME.getCode());
-        response.getHeader().setMessage(TimeEnum.PLAYER_REACHED_TIME.getMessage());
         
         String sResponse = TimeEnum.PLAYER_REACHED_TIME.getMessage();
         

@@ -17,18 +17,18 @@ import cl.patocueck.jdefragranking.service.PlayerService;
 @Path("/Login")
 public class LoginRestService {
 	
-	@Autowired
-	private PlayerService usuarioService;
-	
-	@POST
-	@Path("/login")
-	@Produces("application/json")
+    @Autowired
+    private PlayerService usuarioService;
+
+    @POST
+    @Path("/login")
+    @Produces("application/json")
     @Consumes("application/json")
-	public BaseResponse<LoginResponse> login(LoginRequest login){  
-            BaseResponse<LoginResponse> response = new BaseResponse<LoginResponse>();
+    public BaseResponse<LoginResponse> login(LoginRequest login){  
+        BaseResponse<LoginResponse> response = new BaseResponse<LoginResponse>();
 
-            response = usuarioService.login(login);
+        response = usuarioService.login(login);
 
-            return response;  
-	}  
+        return response;  
+    }  
 }

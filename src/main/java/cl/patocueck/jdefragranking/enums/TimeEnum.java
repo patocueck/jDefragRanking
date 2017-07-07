@@ -18,20 +18,20 @@ public enum TimeEnum {
     private String menssage;
 
     private TimeEnum(String code, String menssage){
-            this.code = code;
-            this.menssage = menssage;
+        this.code = code;
+        this.menssage = menssage;
     }
 
     public String getCode() {
-            return code;
+        return code;
     }
     public void setCode(String code) {
-            this.code = code;
+        this.code = code;
     }
     public String getMessage() {
-            return menssage;
+        return menssage;
     }
     public void setMenssage(String menssage) {
-            this.menssage = menssage;
+        this.menssage = menssage;
     }
 }
