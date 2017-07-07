@@ -11,6 +11,8 @@ import cl.patocueck.jdefragranking.vo.BaseResponse;
 import cl.patocueck.jdefragranking.vo.request.LoginRequest;
 import cl.patocueck.jdefragranking.vo.response.LoginResponse;
 import cl.patocueck.jdefragranking.service.PlayerService;
+import cl.patocueck.jdefragranking.vo.request.RegisterTimeRequest;
+import cl.patocueck.jdefragranking.vo.response.RegisterTimeResponse;
 
 @Service
 public class PlayerServiceImp implements PlayerService {
@@ -19,10 +21,10 @@ public class PlayerServiceImp implements PlayerService {
 
         BaseResponse<LoginResponse> response = new BaseResponse<LoginResponse>();
         if (login.isNotValid()) {
-                response.getHeader().setCode(ErrorEnum.DATOS_INVALIDOS.getCode());
-                response.getHeader().setMessage(ErrorEnum.DATOS_INVALIDOS.getMessage());
+            response.getHeader().setCode(ErrorEnum.DATOS_INVALIDOS.getCode());
+            response.getHeader().setMessage(ErrorEnum.DATOS_INVALIDOS.getMessage());
 
-                return response;
+            return response;
         }
 
         LoginResponse body = new LoginResponse();
@@ -63,5 +65,25 @@ public class PlayerServiceImp implements PlayerService {
     private String generaToken(String data){
         Date fecha = new Date();
         return data + fecha.toString();
+    }
+
+    @Override
+    public BaseResponse<RegisterTimeResponse> registerTime(RegisterTimeRequest registerTime) {
+        BaseResponse<RegisterTimeResponse> response = new BaseResponse<RegisterTimeResponse>();
+        if (registerTime.isNotValid()) {
+            response.getHeader().setCode(ErrorEnum.DATOS_INVALIDOS.getCode());
+            response.getHeader().setMessage(ErrorEnum.DATOS_INVALIDOS.getMessage());
+
+            return response;
+        }
+        RegisterTimeResponse body = new RegisterTimeResponse();
+        Player player = new Player();
+
+        //TODO: Ir a BD a buscar 
+        
+        
+        
+        
+        return response;
     }
 }
