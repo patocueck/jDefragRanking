@@ -5,9 +5,16 @@ public class LoginResponse {
 	private String token;
 	private String nombre;
 	private String apellidos;
-	private String esAdmin;
+	private String nick;
 	private String email;
-	
+
+        public String getNick() {
+            return nick;
+        }
+
+        public void setNick(String nick) {
+            this.nick = nick;
+        }
 	public String getEmail() {
 		return email;
 	}
@@ -25,12 +32,6 @@ public class LoginResponse {
 	}
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
-	}
-	public String getEsAdmin() {
-		return esAdmin;
-	}
-	public void setEsAdmin(String esAdmin) {
-		this.esAdmin = esAdmin;
 	}
 	public String getToken() {
 		return token;

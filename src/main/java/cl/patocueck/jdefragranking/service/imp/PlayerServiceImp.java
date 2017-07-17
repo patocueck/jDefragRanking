@@ -32,6 +32,7 @@ public class PlayerServiceImp implements PlayerService {
     TimeDao timeDao;
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
             
+    @Override
     public BaseResponse<LoginResponse> login(LoginRequest login) {
 
         BaseResponse<LoginResponse> response = new BaseResponse<LoginResponse>();
@@ -60,6 +61,7 @@ public class PlayerServiceImp implements PlayerService {
             body.setEmail(player.getEmail());
             body.setNombre(player.getNombre());
             body.setApellidos(player.getApellidos());
+            body.setNick(player.getNick());
             
             body.setToken(generaToken(player.getEmail() + "/"+ player.getNombre()));
 
@@ -103,7 +105,7 @@ public class PlayerServiceImp implements PlayerService {
                 Logger.getLogger(PlayerServiceImp.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }
-            if ( newDate.compareTo(time.getTime()) > 0 ){
+            if ( newDate.compareTo(time.getTime()) >= 0 ){
                 response.getHeader().setCode(TimeEnum.NOT_IMPROVE_TIME.getCode());
                 response.getHeader().setMessage(TimeEnum.NOT_IMPROVE_TIME.getMessage());
                 return response;
@@ -124,13 +126,15 @@ public class PlayerServiceImp implements PlayerService {
         time.setTime(timeFormat);
 
         timeDao.add(time);
-        
-        String sResponse = TimeEnum.PLAYER_REACHED_TIME.getMessage();
-        
-        sResponse = String.format(sResponse, player.getNick(),time.getTime());
-        body.setResponse(sResponse);
+                
+        StringBuilder sbTime = new StringBuilder();
+        sbTime.append(player.getNick());
+        sbTime.append(" ^7reached the time in ");
+        sbTime.append(sdf.format(time.getTime()));
+        body.setResponse(sbTime.toString());
         response.setBody(body);
-
+        response.getHeader().setCode(ErrorEnum.OK.getCode());
+        response.getHeader().setMessage(ErrorEnum.OK.getMessage());
         return response;
     }
 }

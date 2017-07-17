@@ -9,6 +9,7 @@ import cl.patocueck.jdefragranking.dao.TimeDao;
 import cl.patocueck.jdefragranking.model.Time;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,12 +29,16 @@ public class TimeDaoImp implements TimeDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Time getTimeByEmail(String email, String map, String physic) {
-        return (Time) em
-        .createQuery("SELECT t FROM Time t WHERE t.email = :email and t.map = :map and t.physic = :physic")
-        .setParameter("email", email)
-        .setParameter("map", map)
-        .setParameter("physic", physic)
-        .getSingleResult();
+        try{
+            return (Time) em
+            .createQuery("SELECT t FROM Time t WHERE t.email = :email and t.map = :map and t.physic = :physic")
+            .setParameter("email", email)
+            .setParameter("map", map)
+            .setParameter("physic", physic)
+            .getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
     }
 
     @Override
